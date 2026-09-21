@@ -24,9 +24,17 @@ npx expo run:android
 1. Tap **"1. Render with default allowDownscaling"** — the image renders fine.
 2. Tap **"2. Render with allowDownscaling={false}"** — the app crashes as soon as the image draws.
 
-The bundled image (`assets/huge-7200.jpg`) is a 7200x7200 JPEG. Decoded at
-ARGB_8888 it is `7200 * 7200 * 4 = 207,360,000` bytes — above the 100 MB
+Verified on a Pixel 9 Pro emulator (arm64, release build): step 1 renders, step 2
+dies with the exact exception above (`207360000 bytes` = `7200 * 7200 * 4`).
+
+The image (`assets/huge-7200.jpg`, loaded over HTTP from this repo's raw URL) is a
+7200x7200 JPEG. Decoded at ARGB_8888 it is `207,360,000` bytes — above the 100 MB
 hardware canvas limit enforced by `RecordingCanvas.throwIfCannotDraw`.
+
+**Secondary observation:** loading the same image as a bundled asset
+(`source={require('./assets/huge-7200.jpg')}`) crashes even with **default**
+props — the resource decode path appears to bypass the downsample strategy
+entirely. Swap the `source` in `App.tsx` to reproduce that variant.
 
 ## Root cause
 
