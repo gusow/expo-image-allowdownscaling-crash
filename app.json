@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "expo-image-allowdownscaling-crash",
+    "slug": "expo-image-allowdownscaling-crash",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "android": {
+      "package": "com.repro.expoimageallowdownscalingcrash"
+    },
+    "ios": {
+      "bundleIdentifier": "com.repro.expoimageallowdownscalingcrash"
+    }
+  }
+}
